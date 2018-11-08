@@ -1,7 +1,7 @@
 import React from "react";
 import config from "../../config";
 
-export default function Shell(props) {
+const Shell = props => {
   const useCover = config.USE_COVER;
   const loginCover = config.LOGIN_COVER;
 
@@ -12,9 +12,7 @@ export default function Shell(props) {
 
   const hasOverlay = config.USE_OVERLAY;
   const LOGIN_OVERLAY = hasOverlay
-    ? {
-        background: config.LOGIN_OVERLAY_COLOR
-      }
+    ? { background: config.LOGIN_OVERLAY_COLOR }
     : null;
 
   return (
@@ -24,4 +22,6 @@ export default function Shell(props) {
       </div>
     </div>
   );
-}
+};
+
+export default Shell;

@@ -2,7 +2,7 @@ import React from "react";
 
 import config from "../../config";
 
-export default function ShellCard(props) {
+const ShellCard = props => {
   const LOGO_NAME = config.EVENT_LOGO;
   const LOGO_PATH = require(`../../assets/images/${LOGO_NAME}`);
 
@@ -14,4 +14,6 @@ export default function ShellCard(props) {
       {props.children}
     </div>
   );
-}
+};
+
+export default ShellCard;
