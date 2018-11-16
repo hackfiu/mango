@@ -13,14 +13,32 @@ import config from "../config";
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
 
 export default class Signup extends React.Component {
+  validatePassword = password => {
+    if (password.length < 8)
+      throw new Error("Password must be at least 8 characters long.");
+  };
+
+  confirmPasswords = (password, confirmPassword) => {
+    if (password !== confirmPassword)
+      throw new Error("Passwords do not match.");
+  };
+
   submit = (e, signUp) => {
     e.preventDefault();
 
     const data = new FormData(e.target);
     const email = data.get("email");
     const password = data.get("password");
+    const confirmPassword = data.get("confirmPassword");
 
-    signUp({ variables: { email, password } });
+    try {
+      this.validatePassword(password);
+      this.confirmPasswords(password, confirmPassword);
+
+      signUp({ variables: { email, password } });
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   storeToken = ({ signUp: { token } }) => localStorage.setItem("JWT", token);

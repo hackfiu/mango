@@ -101,3 +101,57 @@ body,
 }
 
 /* ---------------------------------------------------- */
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  padding: 50px 0;
+  position: fixed;
+  text-align: center;
+  background: white !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidebar .logo {
+  max-height: 250px;
+  min-height: 200px;
+}
+.sidebar hr {
+  border-top: 1px solid #e5e5e5;
+  width: 80%;
+}
+.sidebar ul {
+  padding: 0 30px;
+  margin-top: 15px;
+}
+
+.sidebar ul li {
+  font-weight: 900;
+  margin: 10px 0px;
+  padding: 0.5rem 1rem 0.5rem 3.5rem;
+  text-align: left;
+}
+
+.sidebar ul li i {
+  margin: 0 10px;
+}
+.sidebar ul a:hover {
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------- */
+/*
+ * Dashboard
+ */
+
+.dash-container {
+  margin-left: 19rem;
+  text-align: center;
+}

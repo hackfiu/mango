@@ -10,8 +10,16 @@ const SIGN_UP = gql`
 
 const LOG_IN = gql`
   mutation LogIn($email: String!, $password: String!) {
-    logIn(email: $email, password: $password)
+    logIn(email: $email, password: $password) {
+      token
+    }
   }
 `;
 
-export { SIGN_UP, LOG_IN };
+const FORGOT_PASSWORD = gql`
+  mutation ForgotPassword($email: String!) {
+    forgotPassword(email: $email)
+  }
+`;
+
+export { SIGN_UP, LOG_IN, FORGOT_PASSWORD };
