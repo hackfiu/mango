@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import config from "../../config";
+import config from '../../config';
 
 const ShellCard = props => {
   const LOGO_NAME = config.EVENT_LOGO;
@@ -9,7 +9,7 @@ const ShellCard = props => {
   return (
     <div className="login-container">
       <div className="login-img-container">
-        <img src={LOGO_PATH} />
+        <img src={LOGO_PATH} alt="logo" />
       </div>
       {props.children}
     </div>

@@ -1,14 +1,14 @@
-import React from "react";
-import { Redirect, Link } from "react-router-dom";
-import { Nav, NavItem, NavLink } from "reactstrap";
-import config from "../../config";
+import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import config from '../../config';
 
 const LOGO_NAME = config.EVENT_LOGO;
 const LOGO_PATH = require(`../../assets/images/${LOGO_NAME}`);
 const ACTIVE_TAB = {
   background: config.EVENT_MAIN_COLOR,
-  color: "#FFF",
-  borderRadius: "10px"
+  color: '#FFF',
+  borderRadius: '10px'
 };
 const INACTIVE_TAB = {
   color: config.EVENT_MAIN_COLOR
@@ -16,28 +16,28 @@ const INACTIVE_TAB = {
 
 const tabs = [
   {
-    title: "Home",
-    icon: "fa-home",
-    redirect: "/dashboard",
+    title: 'Home',
+    icon: 'fa-home',
+    redirect: '/dashboard',
     active: true
   },
   {
-    title: "Application",
-    icon: "fa-file-alt",
-    redirect: "/application",
+    title: 'Application',
+    icon: 'fa-file-alt',
+    redirect: '/application',
     active: false
   },
   {
-    title: "Settings",
-    icon: "fa-cog",
-    redirect: "/settings",
+    title: 'Settings',
+    icon: 'fa-cog',
+    redirect: '/settings',
     active: false
   }
 ];
 
 const Sidebar = props => (
   <nav className="sidebar">
-    <img className="logo" src={LOGO_PATH} />
+    <img className="logo" src={LOGO_PATH} alt="logo" />
 
     <hr />
 
