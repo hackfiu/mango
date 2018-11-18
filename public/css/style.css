@@ -86,6 +86,7 @@ body,
   justify-content: space-around;
   text-align: center;
 }
+
 .login-options span {
   font-weight: 200;
 }
@@ -94,6 +95,7 @@ body,
   color: #505050;
   text-decoration: none;
 }
+
 .login-options a:hover {
   cursor: pointer;
   text-decoration: none;
@@ -123,10 +125,12 @@ body,
   max-height: 250px;
   min-height: 200px;
 }
+
 .sidebar hr {
   border-top: 1px solid #e5e5e5;
   width: 80%;
 }
+
 .sidebar ul {
   padding: 0 30px;
   margin-top: 15px;
@@ -142,6 +146,7 @@ body,
 .sidebar ul li i {
   margin: 0 10px;
 }
+
 .sidebar ul a:hover {
   text-decoration: none;
 }
@@ -165,5 +170,6 @@ body,
   width: 85%;
   z-index: 1;
   border-radius: 10px;
-  margin: auto;
+  margin: 0px auto;
+  height: 70%;
 }
