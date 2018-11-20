@@ -7,9 +7,11 @@ import client from "./graphql";
 import Login from "./components/Login";
 import Forgot from "./components/Forgot";
 import Signup from "./components/Signup";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Home";
+import Application from "./components/dashboard/Application";
+import Settings from "./components/dashboard/Settings";
 
-import { DefaultRoute, DashboardRoute } from "./routes";
+import { DefaultRoute, DashboardRoute, AddPropsToRoute } from "./routes";
 
 export default class App extends React.Component {
   render() {
@@ -29,10 +31,20 @@ export default class App extends React.Component {
             <DashboardRoute
               exact
               path="/dashboard"
-              component={() => <Dashboard />}
+              component={AddPropsToRoute(Dashboard)}
             />
 
-            <DefaultRoute component={() => <Login />} />
+            <DashboardRoute
+              exact
+              path="/application"
+              component={AddPropsToRoute(Application)}
+            />
+
+            <DashboardRoute
+              exact
+              path="/settings"
+              component={AddPropsToRoute(Settings)}
+            />
           </Switch>
         </BrowserRouter>
       </ApolloProvider>

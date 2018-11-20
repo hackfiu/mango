@@ -18,9 +18,9 @@ body,
   outline: 0 !important;
 }
 
-/* ----------------- LOGIN SCREEN ------------------ */
+/* ----------------- Access SCREEN ------------------ */
 
-.login {
+.access {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -31,7 +31,7 @@ body,
   align-items: center;
 }
 
-.login-overlay {
+.access-overlay {
   content: "";
   display: block;
   width: 100%;
@@ -43,36 +43,17 @@ body,
   align-items: inherit;
 }
 
-.login-container {
-  background-color: #fff;
-  padding: 40px 25px;
-  line-height: 1.5;
-  width: 25rem;
-  z-index: 1;
-  border-radius: 10px;
-}
-
-.login-img-container {
-  width: 100%;
-  text-align: center;
-  padding: 0px 10px 30px 10px;
-}
-
-.login-container img {
-  width: 50%;
-}
-
-.login-container input {
+.access input {
   background: #f5f5f5;
   border: none;
   border-radius: 10px;
 }
 
-.login-container input:focus {
+.access input:focus {
   border: 1px solid #dfdfdf;
 }
 
-.login .btn {
+.access .btn {
   width: 100%;
   border-radius: 0;
   border: none;
@@ -81,20 +62,22 @@ body,
   padding: 10px;
 }
 
-.login-options {
+.access-options {
   display: flex;
   justify-content: space-around;
   text-align: center;
 }
-.login-options span {
+
+.access-options span {
   font-weight: 200;
 }
 
-.login-options a {
+.access-options a {
   color: #505050;
   text-decoration: none;
 }
-.login-options a:hover {
+
+.access-options a:hover {
   cursor: pointer;
   text-decoration: none;
   color: #505050;
@@ -110,7 +93,7 @@ body,
   bottom: 0;
   left: 0;
   width: 300px;
-  height: 100vh;
+  height: 100%;
   padding: 50px 0;
   position: fixed;
   text-align: center;
@@ -121,29 +104,51 @@ body,
 
 .sidebar .logo {
   max-height: 250px;
-  min-height: 200px;
+  min-height: 250px;
 }
+
 .sidebar hr {
   border-top: 1px solid #e5e5e5;
   width: 80%;
 }
+
 .sidebar ul {
   padding: 0 30px;
   margin-top: 15px;
+  position: relative;
 }
 
 .sidebar ul li {
+  color: #fff;
+  border-radius: 10px;
   font-weight: 900;
   margin: 10px 0px;
   padding: 0.5rem 1rem 0.5rem 3.5rem;
   text-align: left;
 }
 
+.sidebar ul li:hover {
+  background: #f6f8fa;
+}
+
 .sidebar ul li i {
   margin: 0 10px;
 }
+
 .sidebar ul a:hover {
   text-decoration: none;
+}
+
+.sidebar .logout {
+  font-weight: 900;
+  border: 0px;
+  color: #ee8888;
+  background: transparent;
+  margin-top: 25rem;
+}
+
+.sidebar .logout:hover {
+  cursor: pointer;
 }
 
 /* ---------------------------------------------------- */
@@ -151,7 +156,85 @@ body,
  * Dashboard
  */
 
-.dash-container {
+.dash {
   margin-left: 19rem;
   text-align: center;
+  height: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+.dash .cover {
+  height: 45rem;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.dash .cover .overlay {
+  height: 45rem;
+}
+
+.dash .card {
+  width: 90%;
+  margin: -27rem auto 0px auto;
+}
+
+.dash .card h1 {
+  font-weight: bold;
+}
+
+.dash .card hr {
+  border-top: 1px solid #e5e5e5;
+  width: 15rem;
+  margin: 3rem auto;
+}
+
+.dash .card button:hover {
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------- */
+/*
+ * Card
+ */
+
+.card {
+  border: 0px !important;
+  overflow-x: hidden;
+  background-color: #fff;
+  border-radius: 10px !important;
+  padding: 3rem 5rem;
+  border: 0px !important;
+}
+
+.access .card {
+  background-color: #fff;
+  padding: 40px 25px;
+  line-height: 1.5;
+  width: 25rem;
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.access .card .img-container {
+  width: 100%;
+  text-align: center;
+  padding: 0px 10px 30px 10px;
+}
+
+.access .card .img-container img {
+  width: 50%;
+}
+
+/* ---------------------------------------------------- */
+
+.status {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #8889ee;
+  color: white;
+  padding: 8px 50px;
+  border-radius: 100px;
+  border: 0px;
 }

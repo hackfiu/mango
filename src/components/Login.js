@@ -3,7 +3,7 @@ import { Redirect } from "react-router";
 import { Input, Button, Form, Label, FormGroup } from "reactstrap";
 
 import Shell from "./shared/Shell";
-import ShellCard from "./shared/ShellCard";
+import Card from "./shared/Card";
 
 import { Mutation } from "react-apollo";
 import { LOG_IN } from "../graphql/mutations";
@@ -11,6 +11,9 @@ import { LOG_IN } from "../graphql/mutations";
 import config from "../config";
 
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
+
+const LOGO_NAME = config.EVENT_LOGO;
+const LOGO_PATH = require(`../assets/images/${LOGO_NAME}`);
 
 export default class Login extends React.Component {
   validatePassword = password => {
@@ -59,9 +62,9 @@ export default class Login extends React.Component {
       </FormGroup>
 
       <Button style={LOGIN_BUTTON}>Log In</Button>
-      <div className="login-forgot" />
+      <div className="access-forgot" />
       <hr />
-      <div className="login-options">
+      <div className="access-options">
         <a href="/forgot">Forgot Password?</a>
         <a href="/signup">
           Sign Up <i className="fa fa-caret-right" aria-hidden="true" />
@@ -73,20 +76,22 @@ export default class Login extends React.Component {
   render() {
     return (
       <Shell>
-        <ShellCard>
-          <Mutation mutation={LOG_IN}>
-            {(logIn, { loading, error, data }) => {
-              if (loading) console.log("loading..");
-              if (error) alert(error.message);
-              if (data) {
-                this.storeToken(data);
-                return <Redirect to="/dashboard" />;
-              }
+        <div className="access">
+          <Card image={LOGO_PATH}>
+            <Mutation mutation={LOG_IN}>
+              {(logIn, { loading, error, data }) => {
+                if (loading) console.log("loading..");
+                if (error) alert(error.message);
+                if (data) {
+                  this.storeToken(data);
+                  return <Redirect to="/dashboard" />;
+                }
 
-              return this.form(logIn);
-            }}
-          </Mutation>
-        </ShellCard>
+                return this.form(logIn);
+              }}
+            </Mutation>
+          </Card>
+        </div>
       </Shell>
     );
   }

@@ -16,8 +16,8 @@ const Shell = props => {
     : null;
 
   return (
-    <div className="login" style={LOGIN_STYLE}>
-      <div className="login-overlay" style={LOGIN_OVERLAY}>
+    <div className="access" style={LOGIN_STYLE}>
+      <div className="access-overlay" style={LOGIN_OVERLAY}>
         {props.children}
       </div>
     </div>
