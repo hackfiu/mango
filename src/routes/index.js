@@ -1,7 +1,9 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, withRouter } from "react-router-dom";
 
 import Sidebar from "../components/shared/Sidebar";
+
+const SidebarWithRouter = withRouter(Sidebar);
 
 const DefaultRoute = ({ component: Component, ...rest }) => {
   const token = localStorage.getItem("JWT");
@@ -28,7 +30,7 @@ const DashboardRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props => (
         <React.Fragment>
-          <Sidebar />
+          <SidebarWithRouter />
           <Component {...props} />
         </React.Fragment>
       )}
@@ -38,4 +40,13 @@ const DashboardRoute = ({ component: Component, ...rest }) => {
   return token ? dashboard : <Redirect to="login" />;
 };
 
-export { DefaultRoute, DashboardRoute };
+const AddPropsToRoute = (WrappedComponent, passedProps) => {
+  return class Route extends React.Component {
+    render() {
+      const props = Object.assign({}, this.props, passedProps);
+      return <WrappedComponent {...props} />;
+    }
+  };
+};
+
+export { DefaultRoute, DashboardRoute, AddPropsToRoute };
