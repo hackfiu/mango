@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router";
-import { Input, Button, Form, Label, FormGroup } from "reactstrap";
+import { SyncLoader } from "react-spinners";
+import { Input, Button, Form, Label, FormGroup, Fade } from "reactstrap";
 
 import Shell from "./shared/Shell";
 import Card from "./shared/Card";
@@ -9,6 +10,8 @@ import { Mutation } from "react-apollo";
 import { SIGN_UP } from "../graphql/mutations";
 
 import config from "../config";
+
+const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
 
@@ -93,20 +96,31 @@ export default class Signup extends React.Component {
     return (
       <Shell>
         <div className="access">
-          <Card image={LOGO_PATH}>
-            <Mutation mutation={SIGN_UP}>
-              {(signUp, { loading, error, data }) => {
-                if (loading) console.log("loading..");
-                if (error) console.log(error);
-                if (data) {
-                  this.storeToken(data);
-                  return <Redirect to="/dashboard" />;
-                }
+          <Fade>
+            <Card image={LOGO_PATH}>
+              <Mutation mutation={SIGN_UP}>
+                {(signUp, { loading, error, data }) => {
+                  if (loading) {
+                    return (
+                      <Card>
+                        <SyncLoader color={EVENT_COLOR} />
+                      </Card>
+                    );
+                  }
+                  if (error) {
+                    console.log(error);
+                    return false;
+                  }
+                  if (data) {
+                    this.storeToken(data);
+                    return <Redirect to="/dashboard" />;
+                  }
 
-                return this.form(signUp);
-              }}
-            </Mutation>
-          </Card>
+                  return this.form(signUp);
+                }}
+              </Mutation>
+            </Card>
+          </Fade>
         </div>
       </Shell>
     );

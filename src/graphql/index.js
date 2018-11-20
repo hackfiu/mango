@@ -1,8 +1,9 @@
-import ApolloClient from "apollo-boost";
+import { ApolloClient } from "apollo-boost";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
+import { InMemoryCache } from "apollo-cache-inmemory";
 
-const httpLink = createHttpLink({ uri: "/graphql" });
+const httpLink = createHttpLink({ uri: "http://54aa6a1a.ngrok.io/graphql" });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("JWT");
@@ -15,8 +16,8 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  uri: "https://peach.now.sh/graphql",
-  link: authLink.concat(httpLink)
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 });
 
 export default client;

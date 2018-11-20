@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, FormGroup, Label, Button, Input } from "reactstrap";
+import { SyncLoader } from "react-spinners";
+import { Form, FormGroup, Label, Button, Input, Fade } from "reactstrap";
 
 import Shell from "./shared/Shell";
 import Card from "./shared/Card";
@@ -8,6 +9,8 @@ import { Mutation } from "react-apollo";
 import { FORGOT_PASSWORD } from "../graphql/mutations";
 
 import config from "../config";
+
+const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
 
@@ -48,19 +51,30 @@ export default class Forgot extends React.Component {
     return (
       <Shell>
         <div className="access">
-          <Card image={LOGO_PATH}>
-            <Mutation mutation={FORGOT_PASSWORD}>
-              {(forgotPassword, { loading, error, data }) => {
-                if (loading) console.log("loading..");
-                if (error) alert(error.message);
-                if (data) {
-                  alert("Email sent");
-                }
+          <Fade>
+            <Card image={LOGO_PATH}>
+              <Mutation mutation={FORGOT_PASSWORD}>
+                {(forgotPassword, { loading, error, data }) => {
+                  if (loading) {
+                    return (
+                      <Card>
+                        <SyncLoader color={EVENT_COLOR} />
+                      </Card>
+                    );
+                  }
+                  if (error) {
+                    return alert(error.message);
+                  }
 
-                return this.form(forgotPassword);
-              }}
-            </Mutation>
-          </Card>
+                  if (data) {
+                    return alert("Email sent");
+                  }
+
+                  return this.form(forgotPassword);
+                }}
+              </Mutation>
+            </Card>
+          </Fade>
         </div>
       </Shell>
     );

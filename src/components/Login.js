@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router";
-import { Input, Button, Form, Label, FormGroup } from "reactstrap";
+import { Input, Button, Form, Label, FormGroup, Fade } from "reactstrap";
 
 import Shell from "./shared/Shell";
 import Card from "./shared/Card";
@@ -77,20 +77,22 @@ export default class Login extends React.Component {
     return (
       <Shell>
         <div className="access">
-          <Card image={LOGO_PATH}>
-            <Mutation mutation={LOG_IN}>
-              {(logIn, { loading, error, data }) => {
-                if (loading) console.log("loading..");
-                if (error) alert(error.message);
-                if (data) {
-                  this.storeToken(data);
-                  return <Redirect to="/dashboard" />;
-                }
+          <Fade>
+            <Card image={LOGO_PATH}>
+              <Mutation mutation={LOG_IN}>
+                {(logIn, { loading, error, data }) => {
+                  if (loading) console.log("loading..");
+                  if (error) alert(error.message);
+                  if (data) {
+                    this.storeToken(data);
+                    return <Redirect to="/dashboard" />;
+                  }
 
-                return this.form(logIn);
-              }}
-            </Mutation>
-          </Card>
+                  return this.form(logIn);
+                }}
+              </Mutation>
+            </Card>
+          </Fade>
         </div>
       </Shell>
     );
