@@ -3,7 +3,7 @@ import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
-const httpLink = createHttpLink({ uri: "http://54aa6a1a.ngrok.io/graphql" });
+const httpLink = createHttpLink({ uri: "http://peach.now.sh/graphql" });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("JWT");
