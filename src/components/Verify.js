@@ -10,6 +10,9 @@ import qs from 'query-string';
 
 const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 
+/* This class exists so that the mutation can take place when the component mounts
+   as per this issue: https://stackoverflow.com/questions/49456738/how-to-run-a-mutation-on-mount-with-react-apollo-2-1s-mutation-component
+*/
 class CallVerify extends React.Component {
   componentDidMount = () => {
     const { verify, token } = this.props;
