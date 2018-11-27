@@ -1,15 +1,15 @@
-import React from "react";
-import jwt_decode from "jwt-decode";
-import { SyncLoader } from "react-spinners";
-import { Fade } from "reactstrap";
+import React from 'react';
+import jwt_decode from 'jwt-decode';
+import { SyncLoader } from 'react-spinners';
+import { Fade } from 'reactstrap';
 
-import { Query } from "react-apollo";
-import { USER } from "../../graphql/queries";
+import { Query } from 'react-apollo';
+import { USER } from '../../graphql/queries';
 
-import DashShell from "../shared/DashShell";
-import Card from "../shared/Card";
+import DashShell from '../shared/DashShell';
+import Card from '../shared/Card';
 
-import config from "../../config";
+import config from '../../config';
 
 const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 
@@ -17,7 +17,7 @@ export default class Home extends React.Component {
   render() {
     const { history } = this.props;
 
-    const JWT = localStorage.getItem("JWT");
+    const JWT = localStorage.getItem('JWT');
     const { id } = jwt_decode(JWT);
 
     return (
@@ -46,9 +46,9 @@ export default class Home extends React.Component {
                   <button
                     type="submit"
                     className="status"
-                    onClick={() => history.push("/application")}
+                    onClick={() => history.push('/application')}
                   >
-                    {user ? user.status : "In Progress"}
+                    {user ? user.status : 'In Progress'}
                   </button>
                 </Card>
               );

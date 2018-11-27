@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 const SIGN_UP = gql`
   mutation SignUp($email: String!, $password: String!) {
@@ -22,4 +22,12 @@ const FORGOT_PASSWORD = gql`
   }
 `;
 
-export { SIGN_UP, LOG_IN, FORGOT_PASSWORD };
+const VERIFY = gql`
+  mutation Verify($token: String!) {
+    verify(token: $token) {
+      token
+    }
+  }
+`;
+
+export { SIGN_UP, LOG_IN, FORGOT_PASSWORD, VERIFY };
