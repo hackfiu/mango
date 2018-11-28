@@ -1,16 +1,20 @@
-import React from "react";
-import { Redirect } from "react-router";
-import { Input, Button, Form, Label, FormGroup, Fade } from "reactstrap";
+import React from 'react';
+import { Redirect } from 'react-router';
+import { Input, Button, Form, Label, FormGroup, Fade } from 'reactstrap';
+import { SyncLoader } from 'react-spinners';
 
-import Shell from "./shared/Shell";
-import Card from "./shared/Card";
+import Shell from './shared/Shell';
+import Card from './shared/Card';
 
-import { Mutation } from "react-apollo";
-import { LOG_IN } from "../graphql/mutations";
+import { Mutation } from 'react-apollo';
+import { LOG_IN } from '../graphql/mutations';
 
-import config from "../config";
+import tokenService from '../services/token';
+
+import config from '../config';
 
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
+const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 
 const LOGO_NAME = config.EVENT_LOGO;
 const LOGO_PATH = require(`../assets/images/${LOGO_NAME}`);
@@ -18,15 +22,15 @@ const LOGO_PATH = require(`../assets/images/${LOGO_NAME}`);
 export default class Login extends React.Component {
   validatePassword = password => {
     if (password.length < 8)
-      throw new Error("Password must be at least 8 characters long.");
+      throw new Error('Password must be at least 8 characters long.');
   };
 
   submit = (e, logIn) => {
     e.preventDefault();
 
     const data = new FormData(e.target);
-    const email = data.get("email");
-    const password = data.get("password");
+    const email = data.get('email');
+    const password = data.get('password');
 
     try {
       this.validatePassword(password);
@@ -36,8 +40,6 @@ export default class Login extends React.Component {
       alert(e.message);
     }
   };
-
-  storeToken = ({ signUp: { token } }) => localStorage.setItem("JWT", token);
 
   form = logIn => (
     <Form onSubmit={e => this.submit(e, logIn)}>
@@ -81,13 +83,19 @@ export default class Login extends React.Component {
             <Card image={LOGO_PATH}>
               <Mutation mutation={LOG_IN}>
                 {(logIn, { loading, error, data }) => {
-                  if (loading) console.log("loading..");
+                  if (loading) {
+                    return (
+                      <Card>
+                        <SyncLoader color={EVENT_COLOR} />;
+                      </Card>
+                    );
+                  }
                   if (error) alert(error.message);
                   if (data) {
-                    this.storeToken(data);
+                    const { token } = data.logIn;
+                    tokenService.storeToken(token);
                     return <Redirect to="/dashboard" />;
                   }
-
                   return this.form(logIn);
                 }}
               </Mutation>

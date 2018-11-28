@@ -1,16 +1,18 @@
-import { ApolloClient } from "apollo-boost";
-import { createHttpLink } from "apollo-link-http";
-import { setContext } from "apollo-link-context";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient } from 'apollo-boost';
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const httpLink = createHttpLink({ uri: "https://peach.now.sh/graphql" });
+const httpLink = createHttpLink({
+  uri: 'https://peach-hackfiu.now.sh/graphql'
+});
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("JWT");
+  const token = localStorage.getItem('JWT');
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : ""
+      authorization: token ? `Bearer ${token}` : ''
     }
   };
 });
