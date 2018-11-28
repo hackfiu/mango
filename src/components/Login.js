@@ -1,6 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { Input, Button, Form, Label, FormGroup, Fade } from 'reactstrap';
+import {
+  Input,
+  Button,
+  Form,
+  Label,
+  FormGroup,
+  Fade,
+  SyncLoader
+} from 'reactstrap';
 
 import Shell from './shared/Shell';
 import Card from './shared/Card';
@@ -13,6 +21,7 @@ import tokenService from '../services/token';
 import config from '../config';
 
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
+const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 
 const LOGO_NAME = config.EVENT_LOGO;
 const LOGO_PATH = require(`../assets/images/${LOGO_NAME}`);
@@ -81,7 +90,13 @@ export default class Login extends React.Component {
             <Card image={LOGO_PATH}>
               <Mutation mutation={LOG_IN}>
                 {(logIn, { loading, error, data }) => {
-                  if (loading) console.log('loading..');
+                  if (loading) {
+                    return (
+                      <Card>
+                        <SyncLoader color={EVENT_COLOR} />;
+                      </Card>
+                    );
+                  }
                   if (error) alert(error.message);
                   if (data) {
                     const { token } = data.logIn;

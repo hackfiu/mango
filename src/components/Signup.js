@@ -101,7 +101,11 @@ export default class Signup extends React.Component {
               <Mutation mutation={SIGN_UP}>
                 {(signUp, { loading, error, data }) => {
                   if (loading) {
-                    return <SyncLoader color={EVENT_COLOR} />;
+                    return (
+                      <Card>
+                        <SyncLoader color={EVENT_COLOR} />;
+                      </Card>
+                    );
                   }
                   if (error) {
                     console.log(error);
