@@ -1,16 +1,16 @@
-import React from "react";
-import { Redirect } from "react-router";
-import { Input, Button, Form, Label, FormGroup, Fade } from "reactstrap";
+import React from 'react';
+import { Redirect } from 'react-router';
+import { Input, Button, Form, Label, FormGroup, Fade } from 'reactstrap';
 
-import Shell from "./shared/Shell";
-import Card from "./shared/Card";
+import Shell from './shared/Shell';
+import Card from './shared/Card';
 
-import { Mutation } from "react-apollo";
-import { LOG_IN } from "../graphql/mutations";
+import { Mutation } from 'react-apollo';
+import { LOG_IN } from '../graphql/mutations';
 
 import tokenService from '../services/token';
 
-import config from "../config";
+import config from '../config';
 
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
 
@@ -20,15 +20,15 @@ const LOGO_PATH = require(`../assets/images/${LOGO_NAME}`);
 export default class Login extends React.Component {
   validatePassword = password => {
     if (password.length < 8)
-      throw new Error("Password must be at least 8 characters long.");
+      throw new Error('Password must be at least 8 characters long.');
   };
 
   submit = (e, logIn) => {
     e.preventDefault();
 
     const data = new FormData(e.target);
-    const email = data.get("email");
-    const password = data.get("password");
+    const email = data.get('email');
+    const password = data.get('password');
 
     try {
       this.validatePassword(password);
@@ -81,10 +81,11 @@ export default class Login extends React.Component {
             <Card image={LOGO_PATH}>
               <Mutation mutation={LOG_IN}>
                 {(logIn, { loading, error, data }) => {
-                  if (loading) console.log("loading..");
+                  if (loading) console.log('loading..');
                   if (error) alert(error.message);
                   if (data) {
-                    tokenService.storeToken(data);
+                    const { token } = data.logIn;
+                    tokenService.storeToken(token);
                     return <Redirect to="/dashboard" />;
                   }
                   return this.form(logIn);

@@ -1,11 +1,11 @@
 import qs from 'query-string';
 
-const storeToken = ({ verify: { token } }) => localStorage.setItem('JWT', token);
+const storeToken = token => localStorage.setItem('JWT', token);
 
 const extractToken = props => {
-    const { search } = props.location;
-    const { token } = qs.parse(search);
-    return token;
+  const { search } = props.location;
+  const { token } = qs.parse(search);
+  return token;
 };
 
-export default { storeToken, extractToken }
+export default { storeToken, extractToken };
