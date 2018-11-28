@@ -1,14 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import {
-  Input,
-  Button,
-  Form,
-  Label,
-  FormGroup,
-  Fade,
-  SyncLoader
-} from 'reactstrap';
+import { Input, Button, Form, Label, FormGroup, Fade } from 'reactstrap';
+import { SyncLoader } from 'react-spinners';
 
 import Shell from './shared/Shell';
 import Card from './shared/Card';
