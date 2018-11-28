@@ -20,10 +20,9 @@ const LOGO_PATH = require(`../assets/images/${LOGO_NAME}`);
 export default class Forgot extends React.Component {
   submit = (e, forgotPassword) => {
     e.preventDefault();
-
-    const data = new FormData(e.target);
-    const email = data.get("email");
-
+    // TODO: Implement this function.
+    // const data = new FormData(e.target);
+    // const email = data.get("email");
     // forgotPassword({ variables: { email } });
   };
 

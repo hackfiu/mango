@@ -9,6 +9,8 @@ import Card from "./shared/Card";
 import { Mutation } from "react-apollo";
 import { SIGN_UP } from "../graphql/mutations";
 
+import tokenService from '../services/token';
+
 import config from "../config";
 
 const EVENT_COLOR = config.EVENT_MAIN_COLOR;
@@ -46,8 +48,6 @@ export default class Signup extends React.Component {
       alert(e.message);
     }
   };
-
-  storeToken = ({ signUp: { token } }) => localStorage.setItem("JWT", token);
 
   form = signUp => (
     <Form onSubmit={e => this.submit(e, signUp)}>
@@ -102,20 +102,16 @@ export default class Signup extends React.Component {
                 {(signUp, { loading, error, data }) => {
                   if (loading) {
                     return (
-                      <Card>
-                        <SyncLoader color={EVENT_COLOR} />
-                      </Card>
+                      <SyncLoader color={EVENT_COLOR} />
                     );
                   }
                   if (error) {
                     console.log(error);
-                    return false;
                   }
                   if (data) {
-                    this.storeToken(data);
+                    tokenService.storeToken(data);
                     return <Redirect to="/dashboard" />;
                   }
-
                   return this.form(signUp);
                 }}
               </Mutation>

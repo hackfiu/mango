@@ -8,6 +8,8 @@ import Card from "./shared/Card";
 import { Mutation } from "react-apollo";
 import { LOG_IN } from "../graphql/mutations";
 
+import tokenService from '../services/token';
+
 import config from "../config";
 
 const LOGIN_BUTTON = { background: config.EVENT_MAIN_COLOR };
@@ -36,8 +38,6 @@ export default class Login extends React.Component {
       alert(e.message);
     }
   };
-
-  storeToken = ({ signUp: { token } }) => localStorage.setItem("JWT", token);
 
   form = logIn => (
     <Form onSubmit={e => this.submit(e, logIn)}>
@@ -84,10 +84,9 @@ export default class Login extends React.Component {
                   if (loading) console.log("loading..");
                   if (error) alert(error.message);
                   if (data) {
-                    this.storeToken(data);
+                    tokenService.storeToken(data);
                     return <Redirect to="/dashboard" />;
                   }
-
                   return this.form(logIn);
                 }}
               </Mutation>
