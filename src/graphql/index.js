@@ -4,7 +4,7 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const httpLink = createHttpLink({
-  uri: 'https://peach-hackfiu.now.sh/graphql'
+  uri: 'http://localhost:3007/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
