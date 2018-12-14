@@ -30,4 +30,28 @@ const VERIFY = gql`
   }
 `;
 
-export { SIGN_UP, LOG_IN, FORGOT_PASSWORD, VERIFY };
+const UPDATE_APPLICATION = gql`
+  mutation UpdateApplication(
+    $firstName: String
+    $lastName: String
+    $major: String
+    $levelOfStudy: LevelOfStudy
+    $gender: Gender
+    $shirtSize: ShirtSize,
+    $resume: Upload
+  ) {
+    updateApplication(
+      firstName: $firstName
+      lastName: $lastName
+      major: $major
+      levelOfStudy: $levelOfStudy
+      gender: $gender
+      shirtSize: $shirtSize,
+      resume: $resume
+    ){
+      firstName
+    }
+  }
+`;
+
+export { SIGN_UP, LOG_IN, FORGOT_PASSWORD, VERIFY, UPDATE_APPLICATION };

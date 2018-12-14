@@ -1,10 +1,10 @@
 import { ApolloClient } from 'apollo-boost';
-import { createHttpLink } from 'apollo-link-http';
+import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const httpLink = createHttpLink({
-  uri: 'https://peach-hackfiu.now.sh/graphql'
+const uploadLink = createUploadLink({
+  uri: 'http://681de01d.ngrok.io/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -12,14 +12,14 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : ''
-    }
+      authorization: token ? `Bearer ${token}` : '',
+    },
   };
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  link: authLink.concat(uploadLink),
+  cache: new InMemoryCache(),
 });
 
 export default client;

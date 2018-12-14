@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 const USER = gql`
   query User($id: ID!) {
@@ -9,4 +9,19 @@ const USER = gql`
   }
 `;
 
-export { USER };
+const APPLICATION = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      application {
+        firstName
+        lastName
+        levelOfStudy
+        major
+        gender
+        shirtSize
+      }
+    }
+  }
+`;
+
+export { USER, APPLICATION };
