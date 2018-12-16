@@ -48,7 +48,7 @@ export default class Home extends React.Component {
                     className="status"
                     onClick={() => history.push('/application')}
                   >
-                    {user ? user.status : 'In Progress'}
+                    {user ? user.status : '...'}
                   </button>
                 </Card>
               );

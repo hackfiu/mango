@@ -10,12 +10,13 @@ const USER = gql`
 `;
 
 const APPLICATION = gql`
-  query User($id: ID!) {
-    user(id: $id) {
+  query Application($userId: ID!) {
+    user(id: $userId) {
       application {
         firstName
         lastName
         levelOfStudy
+        school
         major
         gender
         shirtSize

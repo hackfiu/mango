@@ -1,23 +1,24 @@
 import React from 'react';
 import jwt_decode from 'jwt-decode';
-import { Redirect } from 'react-router';
 import { SyncLoader } from 'react-spinners';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
-import DashShell from '../shared/DashShell';
-import Card from '../shared/Card';
 
 import { Mutation, Query } from 'react-apollo';
 import { APPLICATION } from '../../graphql/queries';
 import { UPDATE_APPLICATION } from '../../graphql/mutations';
 
+import DashShell from '../shared/DashShell';
+import Card from '../shared/Card';
+
+import schools from '../../assets/data/schools.json';
 import config from '../../config';
 
 const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 const FORM_BUTTON = { background: config.EVENT_MAIN_COLOR };
 
 const ApplicationForm = props => {
-  const { fields } = props;
+  const { fields, data = { user: { application: {} } } } = props;
+  const { application } = data.user;
   return (
     <Form
       className="application"
@@ -33,26 +34,30 @@ const ApplicationForm = props => {
               type={field.type}
               name={field.name}
               placeholder={field.placeholder}
+              defaultValue={application[field.name]}
               autoComplete="off"
             />
           )}
 
           {field.type === 'select' && (
-            <Input type={field.type} name={field.name}>
-              {/* <option value="" selected disabled>
-                Major League University
-              </option> */}
+            <Input type={field.type} name={field.name} defaultValue={application[field.name]}>
               {field.options.map(option => (
                 <option key={option}> {option} </option>
               ))}
             </Input>
           )}
 
+          {field.type === 'datalist' && ([
+            <Input key='input' type="text" list={`${field.name}-list`} name={field.name} defaultValue={application[field.name]}/>,
+            <datalist key='list' id={`${field.name}-list`}>
+              {field.options.map(option => (
+                <option key={option} value={option} />
+              ))}
+            </datalist>
+           ])}
+
           {field.type === 'file' && (
-            // <div className="upload-btn-wrapper">
-            // {/* <button className="btn">Resume</button> */}
-            <input type="file" name={field.name} />
-            // {/* </div> */}
+            <input type="file" name={field.name} defaultValue={application[field.name]}/>
           )}
         </FormGroup>
       ))}
@@ -66,13 +71,11 @@ export default class Application extends React.Component {
     e.preventDefault();
 
     const form = new FormData(e.target);
-
-    let values = [...form.values()];
-    let fields = {};
-    [...form.keys()].forEach((key, i) => {
-      fields[key] = values[i];
+    const fields = {}
+    form.forEach((value, key) => { 
+      fields[key] = value 
     });
-
+    console.log(fields)
     try {
       updateApplication({ variables: fields });
     } catch (e) {
@@ -99,13 +102,13 @@ export default class Application extends React.Component {
         label: 'Last Name',
       },
       {
-        type: 'select',
+        type: 'datalist',
         name: 'school',
         label: 'School',
-        options: ['Florida International University', 'University of Miami'],
+        options: schools,
       },
       {
-        type: 'select',
+        type: 'datalist',
         name: 'major',
         label: 'Major',
         options: ['Computer Science', 'Information Technology'],
@@ -114,7 +117,7 @@ export default class Application extends React.Component {
         type: 'select',
         name: 'levelOfStudy',
         label: 'Level of Study',
-        options: ['FRESHMAN', 'SOPHMORE', 'JUNIOR', 'SENIOR'],
+        options: ['FRESHMAN', 'SOPHMORE', 'JUNIOR', 'SENIOR', 'SENIORPLUS', 'GRADUATE', 'OTHER'],
       },
       {
         type: 'select',
@@ -126,60 +129,41 @@ export default class Application extends React.Component {
         type: 'file',
         name: 'resume',
       },
+      ...config.APPLICATION_EXTRA_FIELDS
     ];
-
     return (
       <DashShell>
-        {/* <Query query={APPLICATION} variables={{ id }}>
-          {({ loading, error, data }) => {
-            if (loading) {
-              <Card>
-                <SyncLoader color={EVENT_COLOR} />;
-              </Card>;
-            }
-            if (error) {
-              console.log(error);
-            }
-            if (data) {
-              const { user } = data;
-              console.log(user); */}
-        <Mutation mutation={UPDATE_APPLICATION}>
-          {(updateApplication, { loading, error, data }) => {
-            if (loading) {
-              return (
-                <Card>
-                  <SyncLoader color={EVENT_COLOR} />;
-                </Card>
-              );
-            }
-            if (error) {
-              console.log(error.message);
-            }
-
-            if (data) {
-              console.log(data);
-            }
-
-            return (
-              <Card title="Application">
-                <ApplicationForm
-                  fields={formFields}
-                  submit={e => this.submit(e, updateApplication)}
-                />
-              </Card>
-            );
-          }}
-        </Mutation>
-        {/* //     return ( */}
-        {/* //       <Card title="Application"> */}
-        {/* //         <ApplicationForm */}
-        {/* //           fields={formFields} */}
-        {/* //           submit={e => this.submit(e, updateApplication)} */}
-        {/* //         /> */}
-        {/* //       </Card> */}
-        {/* //     ); */}
-        {/* //   }} */}
-        {/* // </Query> */}
+        <Query query={APPLICATION} variables={{ userId: id }}>
+          {({ loading, error, data }) => (
+            <Mutation mutation={UPDATE_APPLICATION}>
+              {(updateApplication) => {
+                if (loading) {
+                  return (
+                    <Card>
+                      <SyncLoader color={EVENT_COLOR} />
+                    </Card>
+                  );
+                }
+                if (error) {
+                  console.log(error);
+                }
+                if (data) {
+                  const { user } = data;
+                  console.log({ user });
+                }
+                return (
+                  <Card title="Application">
+                    <ApplicationForm
+                      fields={formFields}
+                      data={data}
+                      submit={e => this.submit(e, updateApplication)}
+                    />
+                  </Card>
+                );
+              }}
+            </Mutation>
+          )}
+        </Query>
       </DashShell>
     );
   }

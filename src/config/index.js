@@ -25,7 +25,11 @@ const config = {
   USE_COVER: true,
   LOGIN_OVERLAY_COLOR:
     "linear-gradient(rgba(100, 178, 230, 0.7),rgba(100, 156, 230, 0.7))",
-  LOGIN_COVER: "cover.jpg"
+  LOGIN_COVER: "cover.jpg",
+
+  APPLICATION_EXTRA_FIELDS: [
+    // insert extra fields here.
+  ]
 };
 
 export default config;

@@ -20,7 +20,6 @@ const EVENT_COLOR = config.EVENT_MAIN_COLOR;
 const VerifyToken = props => {
   const { verify, token } = props;
   verify({ variables: { token } });
-
   return null;
 };
 
@@ -42,7 +41,6 @@ const Verify = props => {
               tokenService.storeToken(token);
               return <Redirect to="/dashboard" />;
             }
-
             return <VerifyToken verify={verify} token={token} />;
           }}
         </Mutation>

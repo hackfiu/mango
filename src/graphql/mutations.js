@@ -35,6 +35,7 @@ const UPDATE_APPLICATION = gql`
     $firstName: String
     $lastName: String
     $major: String
+    $school: String
     $levelOfStudy: LevelOfStudy
     $gender: Gender
     $shirtSize: ShirtSize,
@@ -44,9 +45,10 @@ const UPDATE_APPLICATION = gql`
       firstName: $firstName
       lastName: $lastName
       major: $major
+      school: $school
       levelOfStudy: $levelOfStudy
       gender: $gender
-      shirtSize: $shirtSize,
+      shirtSize: $shirtSize
       resume: $resume
     ){
       firstName

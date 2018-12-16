@@ -4,7 +4,7 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const uploadLink = createUploadLink({
-  uri: 'http://681de01d.ngrok.io/graphql',
+  uri: 'http://localhost:5000/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
