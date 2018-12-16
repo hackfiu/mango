@@ -38,7 +38,7 @@ const UPDATE_APPLICATION = gql`
     $school: String
     $levelOfStudy: LevelOfStudy
     $gender: Gender
-    $shirtSize: ShirtSize,
+    $shirtSize: ShirtSize
     $resume: Upload
   ) {
     updateApplication(
@@ -52,8 +52,52 @@ const UPDATE_APPLICATION = gql`
       resume: $resume
     ){
       firstName
+        lastName
+        levelOfStudy
+        school
+        major
+        gender
+        shirtSize
+        resume {
+          name
+        }
     }
   }
 `;
 
-export { SIGN_UP, LOG_IN, FORGOT_PASSWORD, VERIFY, UPDATE_APPLICATION };
+const SUBMIT_APPLICATION = gql`
+  mutation SubmitApplication(
+    $firstName: String!
+    $lastName: String!
+    $major: String!
+    $school: String!
+    $levelOfStudy: LevelOfStudy!
+    $gender: Gender!
+    $shirtSize: ShirtSize!
+    $resume: Upload
+  ) {
+    submitApplication(
+      firstName: $firstName
+      lastName: $lastName
+      major: $major
+      school: $school
+      levelOfStudy: $levelOfStudy
+      gender: $gender
+      shirtSize: $shirtSize
+      resume: $resume
+    ){
+      firstName
+        lastName
+        levelOfStudy
+        school
+        major
+        gender
+        shirtSize
+        resume {
+          name
+        }
+    }
+  }
+`;
+
+export { SIGN_UP, LOG_IN, FORGOT_PASSWORD, VERIFY, UPDATE_APPLICATION, SUBMIT_APPLICATION };

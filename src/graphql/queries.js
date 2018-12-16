@@ -20,6 +20,9 @@ const APPLICATION = gql`
         major
         gender
         shirtSize
+        resume {
+          name
+        }
       }
     }
   }
